@@ -1,0 +1,11 @@
+{
+    "name" : "Polar Area Chart",
+    "description" : "Polar Area Chart based On Chart.js  Library",
+    "icon" : "pie-chart",
+    "type" : "visualization",
+    "version": "1.0.0",
+    "preview" : "pie-chart",
+    "author": "Ruben Albuquerque"
+}
+
+
