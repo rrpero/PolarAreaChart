@@ -179,7 +179,7 @@ define( [
 				// Get the number of fields of a dimension
 				//var numberOfDimValues = layout.qHyperCube.qDataPages[0].qMatrix.length;
 				var numberOfDimValues = qMatrix.length;
-				console.log("qMatrix.length: " + numberOfDimValues);
+				//console.log("qMatrix.length: " + numberOfDimValues);
 				
 				//console.log(qMatrix);
 				//console.log(layout);
@@ -616,9 +616,12 @@ define( [
 					]*/,
 					options: {
 						//variant: 'non-equi-angular',
-						backgroundAxes:false,
+						backgroundGridRadials:null,
+						backgroundGridCount:1,
+						backgroundAxes:true,
 						radius:testRadius,
 						labelsAxes:'n',
+						//labelsPosition:'edge',
 						textFont:'QlikView Sans',
 						labelsBoxed:false,
 						textSize:10,
