@@ -26,7 +26,7 @@ define( [
     // *****************************************************************************
     var dimensions = {
         uses: "dimensions",
-        min: 1,
+        min: 0,
         max: 2
     };
 
@@ -232,7 +232,59 @@ define( [
 		}],
 		defaultValue: false
 	};	
+	messages[language].GRID = "Grid";
+/*	var grid = {
+		type: "boolean",
+		component: "switch",
+		label: messages[language].GRID,
+		ref: "grid",
+		options: [{
+			value: true,
+			label: messages[language].YES
+		}, {
+			value: false,
+			label: messages[language].NO
+		}],
+		defaultValue: true
+	};	*/	
+	var grid = {
+			type: "integer",
+			//component: "switch",
+			label: messages[language].GRID,
+			ref: "grid",
+			defaultValue: 1,
+			min: 0,
+			max: 200
+		};	
+		
+	messages[language].GRID_RADIALS="Divisórias";
+	var gridRadials = {
+			type: "integer",
+			//component: "switch",
+			label: messages[language].GRID_RADIALS,
+			ref: "gridRadials",
+			defaultValue: null,
+			min: 0,
+			max: 200
+		};	
 	
+
+	
+	messages[language].AXES = "Eixos";
+	var axes = {
+		type: "boolean",
+		component: "switch",
+		label: messages[language].AXES,
+		ref: "axes",
+		options: [{
+			value: true,
+			label: messages[language].YES
+		}, {
+			value: false,
+			label: messages[language].NO
+		}],
+		defaultValue: false
+	};		
 	
 	messages[language].BACKGROUND_COLOR = "Cor de Fundo";
 	var backgroundColor = {
@@ -260,6 +312,36 @@ define( [
 			defaultValue: false
 	};		*/
 	
+	messages[language].SHOW_LABELS="Show Labels";
+
+	var chartLabels = {
+			type: "boolean",
+			component: "switch",
+			label: messages[language].SHOW_LABELS,
+			ref: "chartLabels",
+			options: [{
+				value: true,
+				label: messages[language].ON
+			}, {
+				value: false,
+				label: messages[language].OFF
+			}],
+			defaultValue: true
+	};
+	
+	messages[language].LABEL_TEXT_SIZE="Label Text Size";
+
+	var labelTextSize = {
+		type: "integer",
+		label: messages[language].LABEL_TEXT_SIZE,
+		ref: "labelTextSize",
+		component: "slider",
+		min: 10,
+		max: 200,
+		step: 1,			
+		//expression: "always",
+		defaultValue: 100
+	};		
 	
 	
 	messages[language].ITEM_OPTIONS="Opções";
@@ -267,14 +349,20 @@ define( [
 		type:"items",
 		label:messages[language].ITEM_OPTIONS,
 		items: {			
-			rotateType:rotateType,
-			minTextSize:minTextSize,
-			maxTextSize:maxTextSize,
-			bold:bold,
-			capitalize:capitalize,
+			//rotateType:rotateType,
+			//minTextSize:minTextSize,
+			//maxTextSize:maxTextSize,
+			//bold:bold,
+			//capitalize:capitalize,
 			palette:palette,
-			border:border,
-			backgroundColor:backgroundColor
+			//border:border,
+			grid:grid,
+			gridRadials:gridRadials,
+			axes:axes,
+			backgroundColor:backgroundColor,
+			chartLabels,
+			labelTextSize
+			
 			//,keepColors:keepColors
 
 			//,thousandSeparator:thousandSeparator
@@ -282,6 +370,97 @@ define( [
 		}
 	
 	};
+	
+	messages[language].STEP_SCALE = "Passos da Escala";
+	var stepScale = {
+		type: "integer",
+		//component: "switch",
+		label: messages[language].STEP_SCALE,
+		ref: "stepScale",
+		defaultValue: "5",
+		min: "0",
+		max: "200"
+	};
+
+	
+	messages[language].UP_AXE_ESCALE = "Escala Eixo Em Cima"
+	var upScale = {
+		type: "string",
+		component: "switch",
+		label: messages[language].UP_AXE_ESCALE,
+		ref: "upScale",
+		options: [{
+			value: "n",
+			label: messages[language].YES
+		}, {
+			value: "",
+			label: messages[language].NO
+		}],
+		defaultValue: "n"
+	};
+
+	messages[language].DOWN_AXE_ESCALE = "Escala Eixo Em Baixo"
+	var downScale = {
+		type: "string",
+		component: "switch",
+		label: messages[language].DOWN_AXE_ESCALE,
+		ref: "downScale",
+		options: [{
+			value: "s",
+			label: messages[language].YES
+		}, {
+			value: "",
+			label: messages[language].NO
+		}],
+		defaultValue: ""
+	};	
+
+	messages[language].LEFT_AXE_ESCALE = "Escala Eixo Esquerda"
+	var leftScale = {
+		type: "string",
+		component: "switch",
+		label: messages[language].LEFT_AXE_ESCALE,
+		ref: "leftScale",
+		options: [{
+			value: "w",
+			label: messages[language].YES
+		}, {
+			value: "",
+			label: messages[language].NO
+		}],
+		defaultValue: ""
+	};	
+
+	messages[language].RIGHT_AXE_ESCALE = "Escala Eixo Direita"
+	var rightScale = {
+		type: "string",
+		component: "switch",
+		label: messages[language].RIGHT_AXE_ESCALE,
+		ref: "rightScale",
+		options: [{
+			value: "e",
+			label: messages[language].YES
+		}, {
+			value: "",
+			label: messages[language].NO
+		}],
+		defaultValue: ""
+	};	
+	
+	messages[language].ITEM_SCALE="Escala";
+	var Scale = {
+		type:"items",
+		label:messages[language].ITEM_SCALE,
+		items: {
+			stepScale:stepScale,			
+			upScale:upScale,
+			downScale:downScale,
+			leftScale:leftScale,
+			rightScale:rightScale
+		}
+	
+	};	
+	
 	
 	messages[language].CHART_RADIUS_SIZE = "Raio";
 	var chartRadius = {
@@ -309,6 +488,129 @@ define( [
 	
 	};
 	
+	messages[language].LEGEND_POSITION_HORIZONTAL="Posição Horizontal";
+	var keyPositionX = {
+			type: "integer",
+			label: messages[language].LEGEND_POSITION_HORIZONTAL,
+			ref: "keyPositionX",
+			component: "slider",
+			min: -300,
+			max: 300,
+			step: 3,
+			//expression: "always",
+			defaultValue: 0
+	};	
+	
+	messages[language].LEGEND_POSITION_VERTICAL="Posição Vertical";
+	var keyPositionY = {
+			type: "integer",
+			label: messages[language].LEGEND_POSITION_VERTICAL,
+			ref: "keyPositionY",
+			component: "slider",
+			min: -300,
+			max: 300,
+			step: 1,
+			//expression: "always",
+			defaultValue: 3
+	};		
+
+
+	
+	messages[language].SHOW_LEGENDS="Mostrar Legenda";
+	messages[language].SHOW="Mostrar";
+	messages[language].DONT_SHOW="Não Mostrar";
+
+	var showLegends = {
+			type: "boolean",
+			component: "switch",
+			label: messages[language].SHOW_LEGENDS,
+			ref: "showLegends",
+			options: [{
+				value: true,
+				label: messages[language].SHOW
+			}, {
+				value: false,
+				label: messages[language].DONT_SHOW
+			}],
+			defaultValue: false
+	};
+
+	
+	messages[language].ORIENTATION="Orientação";
+	messages[language].VERTICAL="Vertical";
+	messages[language].HORIZONTAL="Horizontal";
+	var graphGutter = {
+			type: "string",
+			component: "switch",
+			label: messages[language].ORIENTATION,
+			ref: "graphGutter",
+			options: [{
+				value: "graph",
+				label: messages[language].VERTICAL
+			}, {
+				value: "gutter",
+				label: messages[language].HORIZONTAL
+			}],
+			defaultValue: "graph"
+	};	
+
+	messages[language].ITEM_LEGENDS="Legenda";
+	//messages[language].ITEM_LABELS="Labels";
+	var legends = {
+		type:"items",
+		//component: "accordion",
+		label:messages[language].ITEM_LEGENDS,
+		items: {			
+			showLegends:showLegends,
+			graphGutter:graphGutter,
+			keyPositionX:keyPositionX,
+			keyPositionY:keyPositionY
+			
+		}
+	
+	};
+	
+	messages[language].CHART_POSITION_VERTICAL="Vertical";
+	var gutterTop = {
+			type: "integer",
+			label: messages[language].CHART_POSITION_VERTICAL,
+			ref: "gutterTop",
+			component: "slider",
+			min: -20,
+			max: 100,
+			step: 1,
+			//expression: "always",
+			defaultValue: 30
+	};
+	
+	messages[language].CHART_POSITION_HORIZONTAL="Horizontal";
+	var gutterLeft = {
+			type: "integer",
+			label: messages[language].CHART_POSITION_HORIZONTAL,
+			ref: "gutterLeft",
+			component: "slider",
+			min: -20,
+			max: 200,
+			step: 1,
+			//expression: "always",
+			defaultValue: 90
+	};
+
+	messages[language].ITEM_POSITION="Posição";	
+	var Position = {
+		type:"items",
+		//component: "expandable-items",
+		label:messages[language].ITEM_POSITION,
+		items: {
+			gutterTop:gutterTop,
+			gutterLeft:gutterLeft
+			//,rotateUpFor:rotateUpFor
+		}
+	
+	};	
+
+
+	
 	messages[language].EXPANDABLE_ITEM_OPTIONS = "Opções";
 	var optionsSizeBorders = {
 		//type:"items",
@@ -316,7 +618,10 @@ define( [
 		label:messages[language].EXPANDABLE_ITEM_OPTIONS,
 		items: {			
 			Options:Options,
-			chartSize:chartSize
+			Position:Position,
+			chartSize:chartSize,
+			legends:legends,
+			Scale:Scale
 			
 		}
 	

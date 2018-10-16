@@ -148,17 +148,42 @@ define( [
 				if(typeof(layout.bold) == "undefined")
 					layout.bold="bold";				
 				if(typeof(layout.capitalize) == "undefined")
-					layout.capitalize="upper";					
-
-
-
-			 
-						
+					layout.capitalize="upper";	
+					
+				if(typeof(layout.keyPositionX) == "undefined")
+					layout.keyPositionX=0;	
+				if(typeof(layout.keyPositionY) == "undefined")
+					layout.keyPositionY=0;	
+				if(typeof(layout.graphGutter) == "undefined")
+					layout.graphGutter="graph";		
 				if(typeof(layout.labelTextSize) == "undefined")
-					layout.labelTextSize=100;	
+					layout.labelTextSize=100;					
 	
 				if(typeof(layout.labelDistance) == "undefined")
 					layout.labelDistance=10;
+				
+				if(typeof(layout.gutterTop) == "undefined")
+					layout.gutterTop=30;			
+				if(typeof(layout.gutterLeft) == "undefined")
+					layout.gutterLeft=100;	
+
+				if(typeof(layout.upScale) == "undefined")
+					layout.upScale="n";	
+				if(typeof(layout.downScale) == "undefined")
+					layout.downScale="s";	
+				if(typeof(layout.leftScale) == "undefined")
+					layout.leftScale="w";	
+				if(typeof(layout.rightScale) == "undefined")
+					layout.rightScale="e";	
+				if(typeof(layout.stepScale) == "undefined")
+					layout.stepScale=5;
+				
+				if(typeof(layout.grid) == "undefined")
+					layout.grid=1;
+				if(typeof(layout.gridRadials) == "undefined")
+					layout.gridRadials=1;
+				if(typeof(layout.showLegends) == "undefined")
+					layout.showLegends=false;					
 
 				var app = qlik.currApp(this);
 				var html="";
@@ -559,6 +584,15 @@ define( [
 					testRadius=height;
 				testRadius=testRadius*(layout.chartRadius/75);
 				
+				testRadius=testRadius*(layout.chartRadius/275);
+				
+				//console.log(parseInt(testRadius*0.04));
+				//console.log((layout.labelTextSize/100));
+				
+				var labelTextSize = parseInt(testRadius*0.06)*(layout.labelTextSize/50);
+				//console.log(labelTextSize);
+				if(labelTextSize< 7)
+					labelTextSize=7;				
 				
 				//RGraph.Reset(document.getElementById(tmpCVSID));
 				var min = Math.min.apply(null, measArrayNum),
@@ -601,6 +635,23 @@ define( [
 				var font="QlikView Sans";
 				//console.log(measArrayNum2);
 				//console.log(Object.keys(newStructure));
+				
+				var labelAxes=layout.upScale+layout.downScale+layout.leftScale+layout.rightScale;
+				if(labelAxes=="")
+					labelAxes="";
+				
+				
+				
+				if(typeof(layout.grid)=="boolean")
+					layout.grid=5;
+				if(layout.grid<0)
+					layout.grid=0;				
+				if (layout.chartLabels) {
+					var labelsArray = Object.keys(newStructure);
+				}
+				else
+					var labelsArray = null;
+				var keys = numberOfDimensions==2?Object.keys(newStructureDim2):Object.keys(newStructure);
 				var rose = new RGraph.Rose({
 					//id: 'canvas-wrapper-'+tmpCVSID,
 					id: tmpCVSID,
@@ -616,17 +667,26 @@ define( [
 					]*/,
 					options: {
 						//variant: 'non-equi-angular',
-						backgroundGridRadials:null,
-						backgroundGridCount:1,
-						backgroundAxes:true,
+						gutterLeft: layout.showLegends ? layout.gutterLeft+190: layout.gutterLeft,
+						gutterRight: 100,
+						gutterTop: layout.gutterTop,
+						gutterBottom: 50,
+						backgroundGridRadials:layout.gridRadials,
+						//backgroundGridCount:layout.grid?layout.grid:0,
+						backgroundGridCount:layout.grid,
+						backgroundGrid:true,
+						
+						backgroundAxes:layout.axes,
 						radius:testRadius,
-						labelsAxes:'n',
+						labelsAxes:layout.upScale+layout.downScale+layout.leftScale+layout.rightScale,
+						labelsCount:layout.stepScale,
+						//ymax:maxValue,
 						//labelsPosition:'edge',
 						textFont:'QlikView Sans',
 						labelsBoxed:false,
-						textSize:10,
-						textSizeScale:7,
-						backgroundGridColor: '#989080',
+						textSize: labelTextSize,
+						textSizeScale:Math.floor(labelTextSize*0.7),
+						backgroundGridColor: 'rgba(155,155,155,1)',//'#989080',
 						//tooltips: toolTipsArray,
 						tooltips:function (idx)
 						{
@@ -647,11 +707,18 @@ define( [
 						]*/,
 						colors: palette,
 						linewidth: 0,
-						labels: Object.keys(newStructure),
+						labels: labelsArray,
 						//exploded: 3,
 						//strokestyle:'rgba(0,0,0,0.8)',
 						backgroundGridLinewidth:1,
-						key:numberOfDimensions==2?Object.keys(newStructureDim2):Object.keys(newStructure),
+						key:layout.showLegends ? keys: null,
+						keyHalign:"right",
+						keyPositionX:layout.keyPositionX,
+						keyPositionY:layout.keyPositionY,
+						keyPositionGraphBoxed:false,
+						keyPosition:layout.graphGutter,
+						keyTextBold:true,
+						keyTextSize:labelTextSize-2,						
 						eventsClick: onClickDimension
 					}
 				}).draw()
