@@ -133,6 +133,29 @@ define( [
 			defaultValue: 4
 	};	
 	
+
+	messages[language].POLAR_OR_RADAR = "Radar ou Polar";
+	messages[language].POLAR = "Polar";
+	messages[language].RADAR = "Radar";
+	messages[language].FUNNEL = "Pirâmide";
+	var polar = {
+		type: "string",
+		component: "dropdown",
+		label: messages[language].POLAR_OR_RADAR,
+		ref: "polar",
+		options: [{
+			value: "polar",
+			label: messages[language].POLAR
+		}, {
+			value: "radar",
+			label: messages[language].RADAR
+		}, {
+			value: "funnel",
+			label: messages[language].FUNNEL
+		}],
+		defaultValue: true
+	};	
+
 	
 	messages[language].ANALOGUE1 =  "Análogas 1";
 	messages[language].ANALOGUE2 =  "Análogas 2";
@@ -354,6 +377,7 @@ define( [
 			//maxTextSize:maxTextSize,
 			//bold:bold,
 			//capitalize:capitalize,
+			polar:polar,
 			palette:palette,
 			//border:border,
 			grid:grid,
