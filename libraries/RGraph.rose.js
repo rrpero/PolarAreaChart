@@ -366,9 +366,9 @@
             /**
             * Change the centerx marginally if the key is defined
             */
-            if (prop['chart.key'] && prop['chart.key'].length > 0 && prop['chart.key'].length >= 3) {
-                this.centerx = this.centerx - this.gutterRight + 5;
-            }
+            //if (prop['chart.key'] && prop['chart.key'].length > 0 && prop['chart.key'].length >= 3) {
+            //    this.centerx = this.centerx - this.gutterRight + 5;
+            //}
     
     
     
